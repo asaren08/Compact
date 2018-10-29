@@ -1,0 +1,59 @@
+body {
+    border: 0;
+    margin: 0px;
+    background-color:#FEF7F2;
+}
+
+#canvas {
+    position: relative;
+    margin: 0px;
+}
+
+#dropArea {
+    position: relative;
+    text-align: center;
+    background:  #000000ff;
+    cursor: pointer;
+}
+
+#drawRect {
+    overflow:hidden;
+    position: relative;
+    background:  #7c9191;
+}
+
+.slider,
+.tool_slider {
+    position: relative;
+    margin: 2.5px auto;
+    width: 80%;
+}
+
+/*slick setting*/
+.slick-prev:before,
+.slick-next:before {
+    color: #000;
+}
+
+.slick-slide {
+    margin-right: 12px;  /* ガター */
+}
+
+.button{
+    width: 80px;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 #e6f4f7;
+    background: #eaf0f1;
+    color:#000;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.button:hover{
+    opacity: 0.8;
+}
+
+.thumb {
+    position: relative;
+    background: #32d6ff;
+}

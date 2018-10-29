@@ -1,0 +1,16 @@
+{
+  "name": "compact",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "@types/gl-matrix": "^2.4.0",
+    "gl-matrix": "^2.6.1",
+    "ts-loader": "^4.3.1",
+    "typescript": "^2.9.1",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^3.0.1"
+  }
+}

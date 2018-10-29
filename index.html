@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Compact Effecter</title>
+    <link rel='stylesheet prefetch' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
+    <script type="text/javascript" src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'>
+    </script>
+    <script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'>
+    </script>
+    <style>
+        @import url('http://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
+        @import url('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css');
+        body {
+            color: #5D5F63;
+            background: #293949;
+            font-family: 'Open Sans', sans-serif;
+            padding: 0;
+            margin: 0;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .sidebar-toggle {
+            margin-left: -240px;
+        }
+
+        .sidebar {
+            width: 240px;
+            height: 100%;
+            background: #293949;
+            position: absolute;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            -ms-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            z-index: 100;
+        }
+
+        .sidebar #leftside-navigation ul,
+        .sidebar #leftside-navigation ul ul {
+            margin: -2px 0 0;
+            padding: 0;
+        }
+
+        .sidebar #leftside-navigation ul li {
+            list-style-type: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar #leftside-navigation ul li.active>a {
+            color: #1abc9c;
+        }
+
+        .sidebar #leftside-navigation ul li.active ul {
+            display: block;
+        }
+
+        .sidebar #leftside-navigation ul li a {
+            color: #aeb2b7;
+            text-decoration: none;
+            display: block;
+            padding: 18px 0 18px 25px;
+            font-size: 12px;
+            outline: 0;
+            -webkit-transition: all 200ms ease-in;
+            -moz-transition: all 200ms ease-in;
+            -o-transition: all 200ms ease-in;
+            -ms-transition: all 200ms ease-in;
+            transition: all 200ms ease-in;
+        }
+
+        .sidebar #leftside-navigation ul li a:hover {
+            color: #1abc9c;
+        }
+
+        .sidebar #leftside-navigation ul li a span {
+            display: inline-block;
+        }
+
+        .sidebar #leftside-navigation ul li a i {
+            width: 20px;
+        }
+
+        .sidebar #leftside-navigation ul li a i .fa-angle-left,
+        .sidebar #leftside-navigation ul li a i .fa-angle-right {
+            padding-top: 3px;
+        }
+
+        .sidebar #leftside-navigation ul ul {
+            display: none;
+        }
+
+        .sidebar #leftside-navigation ul ul li {
+            background: #23313f;
+            margin-bottom: 0;
+            margin-left: 0;
+            margin-right: 0;
+            border-bottom: none;
+        }
+
+        .sidebar #leftside-navigation ul ul li a {
+            font-size: 12px;
+            padding-top: 13px;
+            padding-bottom: 13px;
+            color: #aeb2b7;
+        }
+
+        #knob {
+            background-color: rgb(1, 172, 252);
+            text-decoration: none;
+            color: #FFF;
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            z-index: 99;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 16px;
+            display: inline-block;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js">
+    </script>
+    <script src="https://unpkg.com/tippy.js@2.5.2/dist/tippy.all.min.js"></script>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div id="leftside-navigation" class="nano">
+            <ul class="nano-content">
+                <li>
+                    <a>
+                        <i class="fa fa-dashboard"></i>
+                        <span title="下のメニューから操作できます">Menu</span>
+                    </a>
+                </li>
+                <!-- 色調補正 -->
+                <li class="sub-menu">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-cogs"></i>
+                        <span title="色調を調整できます">Adjust</span>
+                        <i class="arrow fa fa-angle-right pull-right"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a id="brightnessContrast" title="明るさとコントラストを調整できます">
+                                Brightness Contrast
+                            </a>
+                        </li>
+                        <li>
+                            <a id="hueSarturation" title="色相と彩度を調整できます">Hue Sarturation
+                            </a>
+                        </li>
+                        <li id="adjustSliderTable1">
+                            <a id="adjustSliderLabel1"></a>
+                            <a>
+                                <input type="range" value="0.0" min="0.0" max="0.0" step="0.0" id="adjustSlider1">
+                            </a>
+                        </li>
+                        <li id="adjustSliderTable2">
+                            <a id="adjustSliderLabel2"></a>
+                            <a>
+                                <input type="range" value="0.0" min="0.0" max="0.0" step="0.0" id="adjustSlider2">
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- UIを持たないエフェクト -->
+                <li class="sub-menu">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-table"></i>
+                        <span title="簡単なエフェクトをかけることができます">Effect1</span>
+                        <i class="arrow fa fa-angle-right pull-right"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a id="sepia" title="セピア色に変換します">Sepia</a>
+                        </li>
+                        <li>
+                            <a id="grayscale" title="グレースケールに変換します">Grayscale</a>
+                        </li>
+                        <li>
+                            <a id="invert" title="色を逆にします">Invert</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- UIを持つエフェクト -->
+                <li class="sub-menu">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa fa-tasks"></i>
+                        <span title="スライダーを使ったエフェクトをかけられます">Effect2</span>
+                        <i class="arrow fa fa-angle-right pull-right"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a id="thresholding" title="白と黒で描画します">Threshold</a>
+                        </li>
+                        <li>
+                            <a id="transpalent" title="白に近い部分を透明にします">Transpalent</a>
+                        </li>
+                        <li>
+                            <a id="frostedGlass" title="すりガラスのように描画します">ForestedGlass</a>
+                        </li>
+                        <li>
+                            <a id="posterization" title="階調を変更できます">Posterization</a>
+                        </li>
+                        <li>
+                            <a id="zoomBlur" title="カーソルを中心にぼかしをかけます">ZoomBlur</a>
+                        </li>
+                        <li>
+                            <a id="expansion" title="膨張させたり縮小させたりできます">Expansion</a>
+                        </li>
+                        <li>
+                            <a id="pixelate" title="画像を六角形タイルに変換します">Pixelate</a>
+                        </li>
+                        <li id="toolSliderTable">
+                            <a id="toolSliderLabel"></a>
+                            <a>
+                                <input type="range" value="0.0" min="0.0" max="0.0" step="0.0" id="toolSlider">
+                            </a>
+                        </li>
+                        <li id="toolSliderTable2">
+                            <a id="toolSliderLabel2"></a>
+                            <a>
+                                <input type="range" value="0.0" min="0.0" max="0.0" step="0.0" id="toolSlider2">
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- グラデーション -->
+                <li class="sub-menu">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-table"></i>
+                        <span title="グラデーションをかけることができます">Gradation</span>
+                        <i class="arrow fa fa-angle-right pull-right"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a id="blueRed"
+                             title="青から赤へのグラデーションをかけます">Blue Red</a>
+                        </li>
+                        <li>
+                            <a id="toyCamera"
+                             title="トイカメラ風のグラデーションをかけます">Toy Camera</a>
+                        </li>
+                        <li>
+                            <a id="retro"
+                             title="レトロ風のグラデーションをかけます">Retro</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- 追加エフェクト -->
+                <li class="sub-menu">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <span title="ボロノイ分割で遊んでみましょう">Addtional</span>
+                        <i class="arrow fa fa-angle-right pull-right"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a id="voronoiAnimation"
+                             title="ボロノイ分割のアニメーションです">Voronoi Animation</a>
+                        </li>
+                        <li>
+                            <a id="distanceMapAnimation"
+                            title="距離マップのアニメーションです">Distance Map Animation</a>
+                        </li>
+                        <li>
+                            <a id="stainedGlass"
+                            title="ステンドグラス風のフィルダーです">Stained Glass</a>
+                        </li>
+                        <li>
+                            <a title="母点の数を変更できます">Seed</a>
+                            <a>
+                                <input type="range" value="3" min="3" max="12" step="1" id="seedSlider">
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Configuration -->
+                <li class="sub-menu">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-file"></i>
+                        <span id="savePng" title="加工した写真をpngで保存できます">Save</span>
+                        <i class="arrow fa fa-angle-right pull-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- キャンバス要素 -->
+    <div id="drawRect">
+        <!-- つまみ -->
+        <button type="button" id="knob"></button>
+        <!-- 画像の読み込み -->
+        <div id="dropArea">
+            <canvas id="canvas">
+            </canvas>
+        </div>
+    </div>
+
+    <!-- javascript -->
+    <script>tippy('a', { arrow: true })</script>
+    <script>tippy('span', { arrow: true })</script>
+    <script type="text/javascript" src="resouces/side-accordion/index.js"></script>
+    <script type="text/javascript" src="build/main.js"></script>
+</body>
+
+</html>

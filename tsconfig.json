@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5",                         
+    "module": "commonjs",   
+    "sourceMap": true,
+    "noEmitOnError": true, // コンパイルに失敗したときにjsを出力しない
+    "noUnusedParameters": true, // 使用していない引数を検出する
+    "noImplicitReturns": true, // 戻り値が異なっていたときは検出
+  },
+}
